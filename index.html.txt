@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure Lemongrass | Premium Farm Produce</title>
+    <style>
+        :root {
+            --primary: #2d5a27;     /* Deep Forest Lemongrass Green */
+            --accent: #87a96b;      /* Light Herb Green */
+            --light-bg: #fcfbf7;    /* Premium Cream/Off-White */
+            --text-dark: #223322;   /* Dark Charcoal Green */
+            --card-shadow: 0 10px 30px rgba(45, 90, 39, 0.06);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(rgba(45, 90, 39, 0.85), rgba(34, 51, 34, 0.9)), url('https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1200&q=80') no-repeat center/cover;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-info h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+
+        .product-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Quantity Buttons */
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            background: #f0f4f0;
+            border-radius: 30px;
+            padding: 2px;
+        }
+
+        .qty-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .qty-val {
+            font-weight: 600;
+            padding: 0 8px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Checkout Card */
+        .checkout-box {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #eef2ee;
+        }
+
+        .checkout-box h2 {
+            margin-top: 0;
+            color: var(--primary);
+            font-weight: 400;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.75rem 0;
+            font-size: 1.05rem;
+        }
+
+        .total-row {
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-top: 2px dashed #e2ede2;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            color: var(--primary);
+        }
+
+        /* Embedded Gateway Button styling container */
+        .gateway-wrapper {
+            margin-top: 2rem;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>THE LEMONGRASS FARM</h1>
+    <p>100% Organic, steam-distilled and hand-harvested wellness assets direct to your doorstep.</p>
+</header>
+
+<div class="container">
+    <h2 class="section-title">Our Seasonal Collection</h2>
+    <div class="product-grid" id="products"></div>
+
+    <div class="checkout-box">
+        <h2>Your Basket Summary</h2>
+        <div class="bill-row"><span>Items Subtotal:</span><span id="subtotal">₹0</span></div>
+        <div class="bill-row"><span>Estimated Shipping:</span><span id="shipping-fee">₹0</span></div>
+        <div class="bill-row total-row"><span>Grand Total:</span><span id="grand-total">₹0</span></div>
+
+        <div class="gateway-wrapper" id="payment-button-container">
+            <p style="color: #888; font-style: italic; font-size: 0.95rem;">Please add items to your cart to open secure payment gateway.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Configured with crisp, aesthetic stock photos for your specific catalog items
+    const products = [
+        { 
+            id: 'tea', 
+            name: 'Sun-Dried Lemongrass Tea', 
+            desc: 'Whole, loose-leaf herbal cuts. Perfect for crisp morning detox brews and immunity boosts.',
+            price: 299, 
+            unit: '100g Pack',
+            img: 'https://images.unsplash.com/photo-1597318181409-cf64d0b5e8a2?auto=format&fit=crop&w=400&q=80'
+        },
+        { 
+            id: 'oil', 
+            name: 'Pure Lemongrass Essential Oil', 
+            desc: '100% pure steam-distilled aromatic oil. Excellent therapeutic grade for diffusers and skin remedies.',
+            price: 450, 
+            unit: '15ml Bottle',
+            img: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=400&q=80'
+        }
+    ];
+
+    let cart = {};
+
+    function renderProducts() {
+        const grid = document.getElementById('products');
+        grid.innerHTML = products.map(p => `
+            <div class="product-card">
+                <div class="product-image" style="background-image: url('${p.img}')"></div>
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <p class="product-description">${p.desc}</p>
+                    <div class="price-row">
+                        <div class="price">₹${p.price} <span style="font-size:0.85rem; font-weight:normal; color:#666;">/${p.unit}</span></div>
+                        <div class="qty-controls">
+                            <button class="qty-btn" onclick="updateQty('${p.id}', -1)">-</button>
+                            <span class="qty-val" id="qty-${p.id}">0</span>
+                            <button class="qty-btn" onclick="updateQty('${p.id}', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function updateQty(id, change) {
+        if (!cart[id]) cart[id] = 0;
+        cart[id] += change;
+        if (cart[id] < 0) cart[id] = 0;
+        document.getElementById(`qty-${id}`).innerText = cart[id];
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        let subtotal = 0;
+        products.forEach(p => {
+            const qty = cart[p.id] || 0;
+            subtotal += qty * p.price;
+        });
+
+        // Simple shipping calculation logic: ₹50 flat for ground shipping across India
+        const shippingFee = subtotal > 0 ? 50 : 0;
+        const grandTotal = subtotal + shippingFee;
+
+        document.getElementById('subtotal').innerText = `₹${subtotal}`;
+        document.getElementById('shipping-fee').innerText = `₹${shippingFee}`;
+        document.getElementById('grand-total').innerText = `₹${grandTotal}`;
+
+        const gatewayBox = document.getElementById('payment-button-container');
+        
+        if (subtotal > 0) {
+            // INTEGRATION POINT: Replace "pl_YOUR_BUTTON_ID" with your real Approved Razorpay / Instamojo button script
+            gatewayBox.innerHTML = `
+                <form>
+                    <script src="https://checkout.razorpay.com/v1/payment-button.js" 
+                        data-payment_button_id="pl_YOUR_BUTTON_ID" async> 
+                    </script> 
+                </form>
+            `;
+        } else {
+            gatewayBox.innerHTML = `<p style="color: #888; font-style: italic; font-size: 0.95rem;">Please add items to your cart to open secure payment gateway.</p>`;
+        }
+    }
+
+    renderProducts();
+</script>
+</body>
+</html>
